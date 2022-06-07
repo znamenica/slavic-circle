@@ -18,7 +18,7 @@ const Info = () => {
         <div style={{ display: 'flex', height: '100%' }}>
             <div style={{ flexGrow: 1 }}>
                 <Typography variant="h3" gutterBottom component="div">
-                    {t<string>('info')}
+                    {t('info')}
                 </Typography>
                 <Box sx={{ marginBottom: 2 }}>
                     <Paper>

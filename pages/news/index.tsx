@@ -1,5 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 const News = () => {
     return (
@@ -15,5 +16,13 @@ const News = () => {
         </>
     )
 };
+
+export async function getStaticProps({ locale }) {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, ['common'])),
+        },
+    };
+}
 
 export default News;

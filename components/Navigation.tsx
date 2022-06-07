@@ -66,7 +66,7 @@ const Navigation = () => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        {t<string>('logo')}
+                        {t('logo')}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map(page => (
@@ -105,7 +105,7 @@ const Navigation = () => {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
-                                    <Typography textAlign="center">{t<string>(page)}</Typography>
+                                    <Typography textAlign="center">{t(page)}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -116,7 +116,7 @@ const Navigation = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        {t<string>('logo')}
+                        {t('logo')}
                     </Typography>
                     <Box sx={{ flexGrow: 0, marginRight: '10px' }}>
                         <Tooltip title="Change language">
@@ -126,7 +126,7 @@ const Navigation = () => {
                                     variant="body2"
                                     color="white"
                                 >
-                                    {t<string>(i18n.language)}
+                                    {t(i18n.language)}
                                 </Typography>
                                 <LanguageIcon sx={{ color: 'white'}} />
                             </IconButton>
@@ -155,7 +155,7 @@ const Navigation = () => {
                                             href={router.route}
                                             locale={lang}
                                         >
-                                            {t<string>(lang)}
+                                            {t(lang)}
                                         </Link>
                                     </Typography>
                                 </MenuItem>
