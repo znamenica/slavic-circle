@@ -7,22 +7,38 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {useTranslation} from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import {useTranslation} from "next-i18next";
 import LanguageIcon from '@mui/icons-material/Language';
-import I18n from "../i18n";
+import NavigationButton from "./ui/NavigationButton";
+import MenuIcon from "@mui/icons-material/Menu"
+import {useRouter} from "next/router";
+import Link from "next/link";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const languages = ['ru', 'en'];
+const pages = ["news", "docs", "info", "feedback", "contacts"];
 
 const Navigation = () => {
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const [anchorElLanguage, setAnchorElLanguage] = React.useState<null | HTMLElement>(null);
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+    const { t, i18n } = useTranslation('common');
+    const router = useRouter();
+
+    const onNavigate = (page: string) => {
+        router.push(page);
+    }
+
+    const handleCloseNavMenu = (page: string) => {
+        onNavigate(page);
+        setAnchorElNav(null);
+    };
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -40,11 +56,6 @@ const Navigation = () => {
         setAnchorElLanguage(null);
     };
 
-    const onChangeLang = (lang: string) => {
-        handleCloseLanguageMenu();
-        I18n.changeLanguage(lang);
-    };
-
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -55,51 +66,58 @@ const Navigation = () => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        {t('logo')}
+                        {t<string>('logo')}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Button
-                            onClick={() => {
-                                navigate("/news");
-                            }}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {t('news')}
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                navigate("/docs");
-                            }}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {t('docs')}
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                navigate("/info");
-                            }}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {t('info')}
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                navigate("/feedback");
-                            }}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {t('feedback')}
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                navigate("/contacts");
-                            }}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {t('contacts')}
-                        </Button>
+                        {pages.map(page => (
+                            <NavigationButton key={page} label={t(page)} onNavigate={() => onNavigate(page)} />
+                        ))}
                     </Box>
 
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                        >
+                            {pages.map((page) => (
+                                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
+                                    <Typography textAlign="center">{t<string>(page)}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                    >
+                        {t<string>('logo')}
+                    </Typography>
                     <Box sx={{ flexGrow: 0, marginRight: '10px' }}>
                         <Tooltip title="Change language">
                             <IconButton onClick={handleOpenLanguageMenu} sx={{ p: 0 }}>
@@ -108,7 +126,7 @@ const Navigation = () => {
                                     variant="body2"
                                     color="white"
                                 >
-                                    {t(I18n.language)}
+                                    {t<string>(i18n.language)}
                                 </Typography>
                                 <LanguageIcon sx={{ color: 'white'}} />
                             </IconButton>
@@ -130,8 +148,16 @@ const Navigation = () => {
                             onClose={handleCloseLanguageMenu}
                         >
                             {languages.map((lang) => (
-                                <MenuItem key={lang} onClick={() => onChangeLang(lang)}>
-                                    <Typography textAlign="center">{t(lang)}</Typography>
+                                <MenuItem key={lang}>
+                                    <Typography textAlign="center">
+                                        <Link
+                                            style={{ textDecoration: 'none', color: 'black'}}
+                                            href={router.route}
+                                            locale={lang}
+                                        >
+                                            {t<string>(lang)}
+                                        </Link>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
