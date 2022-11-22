@@ -3,6 +3,7 @@ import {createWrapper, HYDRATE} from 'next-redux-wrapper';
 import {ThunkAction} from "redux-thunk";
 import {configureStore, createSlice} from "@reduxjs/toolkit";
 import {diff} from "jsondiffpatch";
+import news from "./news";
 
 const extra = createSlice({
     name: "root",
@@ -28,6 +29,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unkn
 
 const makeStore = () => configureStore({
     reducer: {
+        news,
         [extra.name]: extra.reducer,
     },
     devTools: true,

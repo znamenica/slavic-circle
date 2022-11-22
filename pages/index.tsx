@@ -1,20 +1,16 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 const Home = () => {
-    return (
-        <>
-            <Typography variant="h3" gutterBottom component="div">
-                Новости
-            </Typography>
-            <Box sx={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <Typography variant="body1" gutterBottom component="div">
-                    Скоро здесь появится первая новость
-                </Typography>
-            </Box>
-        </>
-    )
+    const router = useRouter();
+    useEffect(() => {
+        router.replace("/news");
+    }, []);
+
+    return null;
 };
 
 export async function getStaticProps({ locale }) {

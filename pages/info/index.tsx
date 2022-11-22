@@ -69,7 +69,7 @@ const Info = () => {
                             </Box>
                             <Box sx={{ display: "flex", flexDirection: "column", height: `${imageHeight}px` }}>
                                 <CardActionArea>
-                                    <CardContent sx={{ height: "150px", width: `${imageHeight}px` }}>
+                                    <CardContent sx={{ height: "200px", width: `${imageHeight}px` }}>
                                         <Typography gutterBottom variant="h5" component="div">
                                             Межславянский язык
                                         </Typography>
@@ -99,7 +99,7 @@ const Info = () => {
                             </Box>
                             <Box sx={{ display: "flex", flexDirection: "column", height: `${imageHeight}px` }}>
                                 <CardActionArea>
-                                    <CardContent sx={{ height: "150px", width: `${imageHeight}px` }}>
+                                    <CardContent sx={{ height: "200px", width: `${imageHeight}px` }}>
                                         <Typography gutterBottom variant="h5" component="div">
                                             Межславянские вести
                                         </Typography>
@@ -126,7 +126,7 @@ const Info = () => {
                             </Box>
                             <Box sx={{ display: "flex", flexDirection: "column", height: `${imageHeight}px` }}>
                                 <CardActionArea>
-                                    <CardContent sx={{ height: "150px", width: `${imageHeight}px` }}>
+                                    <CardContent sx={{ height: "200px", width: `${imageHeight}px` }}>
                                         <Typography gutterBottom variant="h5" component="div">
                                             Колозор
                                         </Typography>
