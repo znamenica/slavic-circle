@@ -1,0 +1,11 @@
+[Unit]
+Description=Slavic circle
+
+[Service]
+ExecStart=npm start --prefix /var/www/slavic-circle -- -p 3001
+Restart=on-failure
+User=_nginx
+WorkingDirectory=/var/www/slavic-circle
+
+[Install]
+WantedBy=multi-user.target
